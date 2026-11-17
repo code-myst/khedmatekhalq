@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { MapPin, Phone, Mail } from 'lucide-react';
-import { LOGO, WP_URL, CONTACT, bn } from '@/lib/config';
+import { LOGO, CONTACT, bn } from '@/lib/config';
 
 export default function Footer() {
   return (
@@ -28,8 +28,8 @@ export default function Footer() {
           <Link href="/about">আমাদের সম্পর্কে</Link>
           <Link href="/contact">যোগাযোগ</Link>
           <Link href="/delivery-return">ডেলিভারি ও রিটার্ন</Link>
-          <a href={`${WP_URL}/privacy-policy/`}>প্রাইভেসি পলিসি</a>
-          <a href={`${WP_URL}/my-account/`}>আমার অ্যাকাউন্ট</a>
+          <Link href="/privacy">প্রাইভেসি পলিসি</Link>
+          <Link href="/account">আমার অ্যাকাউন্ট</Link>
         </div>
         <div>
           <h4>যোগাযোগ</h4>

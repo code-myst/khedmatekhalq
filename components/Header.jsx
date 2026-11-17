@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ShoppingBag, Search, Menu, X, User, Phone, Sparkles } from 'lucide-react';
 import { useCart } from './CartProvider';
-import { LOGO, WP_URL, CONTACT, bn } from '@/lib/config';
+import { useAuth } from './AuthProvider';
+import { LOGO, CONTACT, bn } from '@/lib/config';
 
 export default function Header() {
   const { count, setOpen } = useCart();
+  const { user, isAdmin } = useAuth();
   const [menu, setMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -40,10 +42,11 @@ export default function Header() {
             <Link href="/#shop" onClick={close}>সব বই</Link>
             <Link href="/about" onClick={close}>আমাদের সম্পর্কে</Link>
             <Link href="/contact" onClick={close}>যোগাযোগ</Link>
+            {isAdmin && <Link href="/admin" onClick={close}>অ্যাডমিন</Link>}
           </nav>
           <div className="actions">
             <Link href="/#shop" className="icon-btn" aria-label="বই খুঁজুন"><Search size={20} /></Link>
-            <a href={`${WP_URL}/my-account/`} className="icon-btn" aria-label="অ্যাকাউন্ট"><User size={20} /></a>
+            <Link href={user ? '/account' : '/login'} className="icon-btn" aria-label="অ্যাকাউন্ট"><User size={20} /></Link>
             <button className="icon-btn" onClick={() => setOpen(true)} aria-label="কার্ট খুলুন">
               <ShoppingBag size={20} />
               {count > 0 && <span className="badge">{bn(count)}</span>}

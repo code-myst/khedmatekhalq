@@ -2,10 +2,12 @@
 import Link from 'next/link';
 import { Plus, Minus, Trash2, ArrowRight } from 'lucide-react';
 import { useCart } from '@/components/CartProvider';
-import { money, bn, WP_URL } from '@/lib/config';
+import { money, bn } from '@/lib/config';
 
 export default function Cart() {
-  const { items, setQty, remove, total } = useCart();
+  const { items, ready, setQty, remove, total } = useCart();
+
+  if (!ready) return <div className="wrap"><p className="muted">লোড হচ্ছে...</p></div>;
 
   if (items.length === 0)
     return (
@@ -16,7 +18,6 @@ export default function Cart() {
       </div>
     );
 
-  const checkout = `${WP_URL}/?kk_cart=${items.map((i) => `${i.id}:${i.qty}`).join(',')}`;
   return (
     <div className="wrap narrow">
       <h1>কার্ট</h1>
@@ -37,9 +38,9 @@ export default function Cart() {
         </div>
       ))}
       <p className="total">মোট: {money(total)}</p>
-      <p className="muted">ডেলিভারি চার্জ চেকআউটে যোগ হবে। পেমেন্ট: ক্যাশ অন ডেলিভারি।</p>
+      <p className="muted">ডেলিভারি চার্জ চেকআউটে যোগ হবে।</p>
       <p className="muted"><Link href="/delivery-return">ডেলিভারি ও রিটার্ন নীতিমালা</Link></p>
-      <a href={checkout} className="btn">চেকআউটে যান <ArrowRight size={18} /></a>
+      <Link href="/checkout" className="btn">চেকআউটে যান <ArrowRight size={18} /></Link>
     </div>
   );
 }

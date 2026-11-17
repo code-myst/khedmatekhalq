@@ -19,9 +19,9 @@ export default function Shop({ products, categories }) {
         p.name.toLowerCase().includes(q.trim().toLowerCase())
     );
     const by = {
-      new: (a, b) => b.id - a.id,
-      low: (a, b) => Number(a.min) - Number(b.min),
-      high: (a, b) => Number(b.min) - Number(a.min),
+      new: (a, b) => b.ts - a.ts,
+      low: (a, b) => a.price - b.price,
+      high: (a, b) => b.price - a.price,
       name: (a, b) => a.name.localeCompare(b.name, 'bn'),
     }[sort];
     return [...l].sort(by);
@@ -29,7 +29,7 @@ export default function Shop({ products, categories }) {
 
   useEffect(() => {
     const c = new URLSearchParams(window.location.search).get('cat');
-    if (c) setCat(c === 'sale' ? 'sale' : Number(c));
+    if (c) setCat(c);
   }, []);
 
   useEffect(() => {

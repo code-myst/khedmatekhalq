@@ -1,15 +1,13 @@
 import { MapPin, Phone, Mail } from 'lucide-react';
-import { getPage, PAGE_SLUGS } from '@/lib/wp';
 import { CONTACT } from '@/lib/config';
 import InfoPage from '@/components/InfoPage';
 import ContactForm from '@/components/ContactForm';
 
 export const metadata = { title: 'যোগাযোগ - খেদমতে খালক মিডিয়া' };
 
-export default async function Contact() {
-  const wp = await getPage(PAGE_SLUGS.contact);
+export default function Contact() {
   return (
-    <InfoPage title="যোগাযোগ" wp={wp} fallback={<p>বই, অর্ডার বা ডেলিভারি নিয়ে যেকোনো প্রশ্নে আমাদের জানান।</p>}>
+    <InfoPage title="যোগাযোগ" fallback={<p>বই, অর্ডার বা ডেলিভারি নিয়ে যেকোনো প্রশ্নে আমাদের জানান।</p>}>
       <div className="contact-grid">
         <div className="contact-card">
           <p className="ct"><MapPin size={18} /> {CONTACT.address}</p>

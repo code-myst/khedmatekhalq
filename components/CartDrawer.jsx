@@ -4,7 +4,7 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCart } from './CartProvider';
-import { money, bn, WP_URL } from '@/lib/config';
+import { money, bn } from '@/lib/config';
 
 export default function CartDrawer() {
   const { items, setQty, remove, total, open, setOpen } = useCart();
@@ -34,8 +34,6 @@ export default function CartDrawer() {
     window.addEventListener('keydown', k);
     return () => window.removeEventListener('keydown', k);
   }, [setOpen]);
-
-  const checkout = `${WP_URL}/?kk_cart=${items.map((i) => `${i.id}:${i.qty}`).join(',')}`;
 
   return (
     <>
@@ -74,8 +72,8 @@ export default function CartDrawer() {
         {items.length > 0 && (
           <div className="d-foot">
             <div className="d-total"><span>মোট</span><strong>{money(total)}</strong></div>
-            <p className="muted">ডেলিভারি চার্জ চেকআউটে যোগ হবে। পেমেন্ট: ক্যাশ অন ডেলিভারি।</p>
-            <a href={checkout} className="btn wide">চেকআউটে যান <ArrowRight size={18} /></a>
+            <p className="muted">ডেলিভারি চার্জ চেকআউটে যোগ হবে।</p>
+            <Link href="/checkout" className="btn wide" onClick={() => setOpen(false)}>চেকআউটে যান <ArrowRight size={18} /></Link>
           </div>
         )}
       </aside>
